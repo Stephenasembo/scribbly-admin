@@ -2,6 +2,7 @@ import Index from "./components/Index";
 import ErrorPage from "./components/ErrorPage";
 import LoginForm from "./components/LoginForm";
 import ForbiddenPage from "./components/ForbiddenPage";
+import Homepage from "./components/Homepage";
 
 const routes = [
   {
@@ -16,6 +17,10 @@ const routes = [
   {
     path: 'forbidden',
     element: <ForbiddenPage />,
+  },
+  {
+    path: 'app',
+    element: <Homepage />,
   },
 ]
 
