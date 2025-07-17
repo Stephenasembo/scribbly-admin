@@ -1,6 +1,7 @@
 import Index from "./components/Index";
 import ErrorPage from "./components/ErrorPage";
 import LoginForm from "./components/LoginForm";
+import ForbiddenPage from "./components/ForbiddenPage";
 
 const routes = [
   {
@@ -11,6 +12,10 @@ const routes = [
   {
     path: 'login',
     element: <LoginForm />,
+  },
+  {
+    path: 'forbidden',
+    element: <ForbiddenPage />,
   },
 ]
 
