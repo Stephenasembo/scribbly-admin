@@ -3,6 +3,7 @@ import ErrorPage from "./components/ErrorPage";
 import LoginForm from "./components/LoginForm";
 import ForbiddenPage from "./components/ForbiddenPage";
 import Homepage from "./components/Homepage";
+import PostPage from "./components/PostPage";
 
 const routes = [
   {
@@ -22,6 +23,10 @@ const routes = [
     path: 'app',
     element: <Homepage />,
   },
+  {
+    path: 'posts/:postId',
+    element: <PostPage />
+  }
 ]
 
 export default routes;
