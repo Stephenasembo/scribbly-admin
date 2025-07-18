@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import Post from "./Post";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Button from "./Button";
 
 export default function Homepage() {
   const [posts, setPosts] = useState([]);
   const [status, setStatus] = useState('loading');
   const [postCounter, setPostCounter] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -45,9 +46,15 @@ export default function Homepage() {
         <p>
           Explore thoughts, stories and ideas from seasoned writers.
         </p>
-        <Button
-        text='Start reading'
-        />
+        <p>
+          <Button
+          text='Start reading'
+          />
+          <Button
+          text='Create Post'
+          onClick={() => navigate('/post-form')}
+          />
+        </p>
       </div>
     </header>
     <main>

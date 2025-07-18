@@ -4,6 +4,7 @@ import LoginForm from "./components/LoginForm";
 import ForbiddenPage from "./components/ForbiddenPage";
 import Homepage from "./components/Homepage";
 import PostPage from "./components/PostPage";
+import PostForm from "./components/PostForm";
 
 const routes = [
   {
@@ -26,6 +27,10 @@ const routes = [
   {
     path: 'posts/:postId',
     element: <PostPage />
+  },
+  {
+    path: 'post-form',
+    element: <PostForm />
   }
 ]
 
