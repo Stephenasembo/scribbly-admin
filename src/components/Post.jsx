@@ -30,10 +30,15 @@ export default function Post({post, updatePost}) {
           {post.content.slice(0, 100)} ...
           <Link to={`/posts/${post.id}`} >Read more</Link>
           </p>
+        {post.published ?
         <p>
           Published on: {(new Date(post.publishedAt)).toDateString()} by 
           <span> {post.author}</span>  
+        </p> :
+        <p>
+          Post not yet published.
         </p>
+        }
         <p>
           {post.published ?
           <Button
