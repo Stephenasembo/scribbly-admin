@@ -6,7 +6,8 @@ import Button from "./Button";
 export default function Homepage() {
   const [posts, setPosts] = useState([]);
   const [status, setStatus] = useState('loading');
-  
+  const [postCounter, setPostCounter] = useState(0);
+
   useEffect(() => {
     const baseUrl = import.meta.env.VITE_BASE_URL;
     const url = `${baseUrl}admin/posts`;
@@ -30,7 +31,7 @@ export default function Homepage() {
     fetchPosts()
       .then(() => setStatus('data'))
       .catch(() => setStatus('error'))
-  }, [])
+  }, [postCounter])
 
   return(
     <div>
@@ -60,8 +61,9 @@ export default function Homepage() {
         {posts.length > 0 ?
           posts.map((post) => (
             <Post
-            key={post.id}
+            key={`${postCounter}${post.id}`}
             post={post}
+            updatePost={setPostCounter}
             />
           )) :
           <p>No posts on this site yet.</p>
