@@ -5,14 +5,51 @@ import { useNavigate } from "react-router-dom";
 
 export default function PostForm() {
   const [postData, setPostData] = useState({});
+  const [status, setStatus] = useState('data');
   const navigate = useNavigate()
 
-  function cancelPost() {
-    return navigate(-1)
+  async function submitPost() {
+    const baseUrl = import.meta.env.VITE_BASE_URL;
+    const url = `${baseUrl}admin/post`;
+    const token = localStorage.getItem('jwt');
+
+    let response = await fetch(url, {
+      mode: 'cors',
+      method: 'POST',
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postData)
+    })
+
+    if(response.status === 201) {
+      return navigate('/app')
+    }
+
+    return setStatus('error');
   }
 
-  function createPost() {
-    return navigate(-1)
+  function cancelPost(e) {
+    e.preventDefault()
+    setPostData({})
+    return navigate('/app')
+  }
+
+  function createPost(e) {
+    e.preventDefault();
+    setStatus('loading')
+    submitPost();
+    if(status === 'data') {
+      return navigate(-1)
+    }
+  }
+
+  function updateContent(e) {
+    const newValue = e.target.value;
+    setPostData((prevData) => ({
+      ...prevData, content: newValue
+    }))
   }
 
   return(
@@ -40,6 +77,7 @@ export default function PostForm() {
             id="content"
             rows='25'
             required
+            onChange={updateContent}
             >
             </textarea>
           </div>
