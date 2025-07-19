@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Button from "./Button"
 import Input from "./Input"
 import { useState } from "react";
@@ -9,6 +9,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const url = `${baseUrl}auth/login`
+  const clientApp = import.meta.env.VITE_SCRIBBLY_APP;
 
   async function sendData() {
     let response = await fetch(url, {
@@ -43,6 +44,13 @@ export default function LoginForm() {
   return(
     <div>
       <h1 className='heading'>Login To Your Account</h1>
+      <div>
+        <Link to='/'>Home</Link>
+      </div>
+      <div>
+        Not an admin ?
+        <a href={`${clientApp}admin-registration`}>Get promoted</a>
+      </div>
       <form action="/" method="post">
         <p>
           Fields marked with an asterisk(*) are required.
