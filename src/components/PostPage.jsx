@@ -107,8 +107,9 @@ export default function PostPage() {
           <CommentForm
           value={comment}
           setValue={setComment}
+          btnText='Submit'
           cancelComment={cancelComment}
-          submitComment={(e) => submitComment(e)}
+          commentBtnFunction={(e) => submitComment(e)}
           /> :
           <Button text='Comment' onClick={toggleComment} />
           }

@@ -1,6 +1,6 @@
 import Button from "./Button";
 
-export default function CommentForm({value, setValue, cancelComment, submitComment}) {
+export default function CommentForm({value, setValue, cancelComment, commentBtnFunction, btnText}) {
   return(
     <form action="">
       <textarea
@@ -15,7 +15,7 @@ export default function CommentForm({value, setValue, cancelComment, submitComme
       </textarea>
       <div>
         <Button text='Cancel' onClick={cancelComment}/>
-        <Button text='Submit' onClick={submitComment}/>
+        <Button text={btnText} onClick={commentBtnFunction}/>
       </div>
     </form>
 )
