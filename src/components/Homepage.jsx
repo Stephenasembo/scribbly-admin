@@ -69,8 +69,11 @@ export default function Homepage() {
           posts.map((post) => (
             <Post
             key={`${postCounter}${post.id}`}
+            id={post.id}
             post={post}
             updatePost={setPostCounter}
+            posts={posts}
+            setPosts={setPosts}
             />
           )) :
           <p>No posts on this site yet.</p>

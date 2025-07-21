@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom"
 import Button from "./Button"
 
-export default function Post({post, updatePost}) {
+export default function Post({post, updatePost, id, posts, setPosts}) {
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const token = localStorage.getItem('jwt')
+
   async function togglePublishStatus() {
-    const baseUrl = import.meta.env.VITE_BASE_URL;
     const url = `${baseUrl}admin/posts/${post.id}`;
-    const token = localStorage.getItem('jwt')
     let response = await fetch(url, {
       mode: 'cors',
       method: 'PATCH',
@@ -20,6 +21,22 @@ export default function Post({post, updatePost}) {
     response = await response.json();
     console.log(response);
     updatePost((count) => count + 1);
+  }
+
+  async function deletePost() {
+    const newPosts = posts.filter((post) => post.id !== id);
+    const url = `${baseUrl}admin/posts/${id}`;
+    let response = await fetch(url, {
+      mode: 'cors',
+      method: 'DELETE',
+      headers: {
+        'Authorization': token
+      }
+    });
+    if (response.status !== 204) {
+      return console.log('Error on deleting post.');
+    }
+    setPosts(newPosts);
   }
 
   return(
@@ -50,6 +67,10 @@ export default function Post({post, updatePost}) {
           onClick={togglePublishStatus}
           />
           }
+          <Button
+          text='Delete Post'
+          onClick={deletePost}
+          />
         </p>
       </section>
     </div>
