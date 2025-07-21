@@ -89,6 +89,7 @@ export default function PostPage() {
             post.comments.map((comment) => (
               <Comment
               key={comment.id}
+              id={comment.id}
               comment={comment}/>
             )):
             <p>
