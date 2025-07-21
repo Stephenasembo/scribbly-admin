@@ -10,6 +10,7 @@ export default function PostPage() {
   const [isWriting, setIsWriting] = useState(false)
   const { postId } = useParams();
   const [commentStatus, setCommentStatus] = useState('');
+  const [postUpdated, setPostUpdated] = useState(false);
 
   useEffect(() => {
     const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -32,7 +33,7 @@ export default function PostPage() {
     }
 
     fetchPost()
-  }, [postId, commentStatus])
+  }, [postId, commentStatus, postUpdated])
 
   function toggleComment() {
     setIsWriting(true)
@@ -90,7 +91,10 @@ export default function PostPage() {
               <Comment
               key={comment.id}
               id={comment.id}
-              comment={comment}/>
+              comment={comment}
+              pageUpdated={postUpdated}
+              updatePage={setPostUpdated}
+              />
             )):
             <p>
               No comments yet. Be the first to comment.

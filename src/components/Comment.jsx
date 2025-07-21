@@ -1,6 +1,6 @@
 import Button from "./Button";
 
-export default function Comment({comment, id}) {
+export default function Comment({comment, id, pageUpdated, updatePage}) {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem('jwt');
 
@@ -14,6 +14,7 @@ export default function Comment({comment, id}) {
       }
     })
     if (response.status === 204) {
+      updatePage(!pageUpdated);
       return console.log('Comment deleted')
     }
     console.log('An error occurred on deleting comment.')
