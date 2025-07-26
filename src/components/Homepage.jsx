@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Post from "./Post";
 import { Link, useNavigate } from "react-router-dom"
 import Button from "./Button";
+import { useAuthContext } from "./context/AuthContext";
 
 export default function Homepage() {
   const [posts, setPosts] = useState([]);
@@ -9,6 +10,8 @@ export default function Homepage() {
   const [postCounter, setPostCounter] = useState(0);
   const [pageUpdated, setPageUpdated] = useState(false);
   const navigate = useNavigate();
+
+  const {currentUser} = useAuthContext();
 
   useEffect(() => {
     const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -42,7 +45,7 @@ export default function Homepage() {
       <Link to='/posts'>Posts</Link>
     </nav>
     <header>
-      <h1>Welcome to Scribbly.</h1>
+      <h1>Welcome back {currentUser.username}, to Scribbly.</h1>
       <div>
         <p>
           Explore thoughts, stories and ideas from seasoned writers.
