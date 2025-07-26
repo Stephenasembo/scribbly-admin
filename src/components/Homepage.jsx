@@ -7,6 +7,7 @@ export default function Homepage() {
   const [posts, setPosts] = useState([]);
   const [status, setStatus] = useState('loading');
   const [postCounter, setPostCounter] = useState(0);
+  const [pageUpdated, setPageUpdated] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export default function Homepage() {
     fetchPosts()
       .then(() => setStatus('data'))
       .catch(() => setStatus('error'))
-  }, [postCounter])
+  }, [postCounter, pageUpdated])
 
   return(
     <div>
@@ -74,6 +75,8 @@ export default function Homepage() {
             updatePost={setPostCounter}
             posts={posts}
             setPosts={setPosts}
+            pageUpdated={pageUpdated}
+            setPageUpdated={setPageUpdated}
             />
           )) :
           <p>No posts on this site yet.</p>

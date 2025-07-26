@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom"
 import Button from "./Button"
+import { usePostContext } from "./context/PostContext";
+import PostForm from "./PostForm";
+import { useState } from "react";
 
-export default function Post({post, updatePost, id, posts, setPosts}) {
+export default function Post({post, updatePost, id, posts, setPosts, setPageUpdated}) {
+  const [updateBtnClicked, setUpdateBtnClicked] = useState(false);
+  const {savedPost, setSavedPost} = usePostContext()
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem('jwt')
 
@@ -39,40 +44,58 @@ export default function Post({post, updatePost, id, posts, setPosts}) {
     setPosts(newPosts);
   }
 
+  async function updatePostContent() {
+    setSavedPost(() => post);
+    setUpdateBtnClicked(true);
+  }
+
   return(
     <div>
-      <section className='post'>
-        <h3>{post.title}</h3>
-        <p>
-          {post.content.slice(0, 100)} ...
-          <Link to={`/posts/${post.id}`} >Read more</Link>
-          </p>
-        {post.published ?
-        <p>
-          Published on: {(new Date(post.publishedAt)).toDateString()} by 
-          <span> {post.author}</span>  
-        </p> :
-        <p>
-          Post not yet published.
-        </p>
-        }
-        <p>
+      {updateBtnClicked ?
+        <PostForm
+        savedPost={savedPost}
+        setFormOpen={setUpdateBtnClicked}
+        setPageUpdated={setPageUpdated}
+        /> :
+      <div>
+        <section className='post'>
+          <h3>{post.title}</h3>
+          <p>
+            {post.content.slice(0, 100)} ...
+            <Link to={`/posts/${post.id}`} >Read more</Link>
+            </p>
           {post.published ?
-          <Button
-          text='Unpublish'
-          onClick={togglePublishStatus}
-          /> :
-          <Button
-          text='Publish'
-          onClick={togglePublishStatus}
-          />
+          <p>
+            Published on: {(new Date(post.publishedAt)).toDateString()} by
+            <span> {post.author}</span>
+          </p> :
+          <p>
+            Post not yet published.
+          </p>
           }
-          <Button
-          text='Delete Post'
-          onClick={deletePost}
-          />
-        </p>
-      </section>
+          <p>
+            {post.published ?
+            <Button
+            text='Unpublish'
+            onClick={togglePublishStatus}
+            /> :
+            <Button
+            text='Publish'
+            onClick={togglePublishStatus}
+            />
+            }
+            <Button
+            text='Delete Post'
+            onClick={deletePost}
+            />
+            <Button
+            text='Update Post'
+            onClick={updatePostContent}
+            />
+          </p>
+        </section>
+      </div>
+      }
     </div>
   )
 }

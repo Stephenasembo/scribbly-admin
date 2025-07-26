@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom"
 import Comment from "./Comment";
 import Button from "./Button";
 import CommentForm from "./CommentForm";
-import { usePostContext } from "./context/PostContext";
 
 export default function PostPage() {
   const [post, setPost] = useState({})
@@ -12,9 +11,6 @@ export default function PostPage() {
   const { postId } = useParams();
   const [commentStatus, setCommentStatus] = useState('');
   const [postUpdated, setPostUpdated] = useState(false);
-  const {savedPost, setSavedPost} = usePostContext()
-
-  console.log(savedPost)
 
   useEffect(() => {
     const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -31,14 +27,13 @@ export default function PostPage() {
       if(response.status === 200) {
         response = await response.json();
         setPost(response.data);
-        setSavedPost(response.data);
       } else {
         console.log('An error occured.')
       }
     }
 
     fetchPost()
-  }, [postId, commentStatus, postUpdated, setSavedPost])
+  }, [postId, commentStatus, postUpdated])
 
   function toggleComment() {
     setIsWriting(true)
