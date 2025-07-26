@@ -2,11 +2,13 @@ import { useNavigate, Link } from "react-router-dom";
 import Button from "./Button"
 import Input from "./Input"
 import { useState } from "react";
+import { useAuthContext } from "./context/AuthContext";
 
 export default function LoginForm() {
   const [keyCounter, setKeyCounter] = useState(0);
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
+  const {setCurrentUser} = useAuthContext();
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const url = `${baseUrl}auth/login`
   const clientApp = import.meta.env.VITE_SCRIBBLY_APP;
@@ -29,6 +31,7 @@ export default function LoginForm() {
     if(user.admin) {
       const jwt = response.token;
       localStorage.setItem('jwt', `Bearer ${jwt}`)
+      setCurrentUser(user);
       return navigate('/app');
     }
     return navigate('/forbidden');
