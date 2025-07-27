@@ -72,11 +72,11 @@ export default function Comment({comment, id, pageUpdated, updatePage}) {
       />:
       <div>
         <p>
-          <span>{comment.userId}</span>
-          <span>{(new Date(comment.createdAt)).toDateString()}</span>
+          {content}
         </p>
         <p>
-          {content}
+          <span>@ {comment.author} </span>
+          <span>{(new Date(comment.createdAt)).toDateString()}</span>
         </p>
         <Button
         text='Delete comment'
