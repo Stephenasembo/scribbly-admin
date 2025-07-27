@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "./Button";
 import CommentForm from "./CommentForm";
+import { useAuthContext } from "./context/AuthContext";
 
 export default function Comment({comment, id, pageUpdated, updatePage}) {
   const [isUpdating, setIsUpdating] = useState(false);
@@ -8,6 +9,8 @@ export default function Comment({comment, id, pageUpdated, updatePage}) {
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem('jwt');
+
+  const { currentUser } = useAuthContext();
 
   async function deleteComment() {
     const url = `${baseUrl}admin/comments/${id}`
@@ -79,10 +82,12 @@ export default function Comment({comment, id, pageUpdated, updatePage}) {
         text='Delete comment'
         onClick={deleteComment}
         />
-        <Button
-        text='Update comment'
-        onClick={toggleComment}
+        {comment.userId === currentUser.id &&
+          <Button
+          text='Update comment'
+          onClick={toggleComment}
         />
+        }
       </div>
       }
     </div>
