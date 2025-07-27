@@ -1,0 +1,10 @@
+.container {
+  margin: 1rem;
+}
+
+.btn {
+  margin-left: 1rem;
+  padding: 0.5rem;
+  font-size: 18px;
+  border-radius: 1rem;
+}

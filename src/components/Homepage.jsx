@@ -41,8 +41,8 @@ export default function Homepage() {
 
   return(
     <div className={styles.container}>
-      <nav>
-        <Link to='/'>Home</Link>
+      <nav className={styles.navbar}>
+        <Link to='/' className={styles.navLink}>Home</Link>
         <Button 
         text='Logout'
         className={styles.logoutBtn}
@@ -54,7 +54,7 @@ export default function Homepage() {
       </nav>
       <header>
         <h1>Welcome back {currentUser.username}, to Scribbly.</h1>
-        <div>
+        <div className={styles.hero}>
           <p>
             Explore thoughts, stories and ideas from seasoned writers.
           </p>
@@ -68,7 +68,7 @@ export default function Homepage() {
       </header>
       <main>
         {status === 'loading' &&
-        <div>Loading posts hang tight!</div>}
+        <div className={styles.spinner}></div>}
         {status === 'error' &&
         <p>An error occured while fetching data.</p>}
         { status === 'data' &&

@@ -3,6 +3,7 @@ import Button from "./Button"
 import Input from "./Input"
 import { useState } from "react";
 import { useAuthContext } from "./context/AuthContext";
+import styles from '../styles/Form.module.css'
 
 export default function LoginForm() {
   const [keyCounter, setKeyCounter] = useState(0);
@@ -45,7 +46,7 @@ export default function LoginForm() {
   }
 
   return(
-    <div>
+    <div className={styles.container}>
       <h1 className='heading'>Login To Your Account</h1>
       <div>
         <Link to='/'>Home</Link>
@@ -85,6 +86,7 @@ export default function LoginForm() {
           />
         </label>
         <Button
+        className={styles.btn}
         text='Log in'
         onClick={submitForm}
         />
