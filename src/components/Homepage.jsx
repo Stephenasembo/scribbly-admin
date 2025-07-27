@@ -3,6 +3,7 @@ import Post from "./Post";
 import { Link, useNavigate } from "react-router-dom"
 import Button from "./Button";
 import { useAuthContext } from "./context/AuthContext";
+import styles from '../styles/Homepage.module.css'
 
 export default function Homepage() {
   const [posts, setPosts] = useState([]);
@@ -39,57 +40,61 @@ export default function Homepage() {
   }, [postCounter, pageUpdated])
 
   return(
-    <div>
-    <nav>
-      <Link to='/'>Home</Link>
-      <Link to='/posts'>Posts</Link>
-    </nav>
-    <header>
-      <h1>Welcome back {currentUser.username}, to Scribbly.</h1>
-      <div>
-        <p>
-          Explore thoughts, stories and ideas from seasoned writers.
-        </p>
-        <p>
-          <Button
-          text='Start reading'
-          />
-          <Button
-          text='Create Post'
-          onClick={() => navigate('/post-form')}
-          />
-        </p>
-      </div>
-    </header>
-    <main>
-      {status === 'loading' &&
-      <div>Loading posts hang tight!</div>}
-      {status === 'error' &&
-      <p>An error occured while fetching data.</p>}
-      { status === 'data' &&
-      <div>
-        <h2 className="heading">Posts</h2>
-        {posts.length > 0 ?
-          posts.map((post) => (
-            <Post
-            key={`${postCounter}${post.id}`}
-            id={post.id}
-            post={post}
-            updatePost={setPostCounter}
-            posts={posts}
-            setPosts={setPosts}
-            pageUpdated={pageUpdated}
-            setPageUpdated={setPageUpdated}
+    <div className={styles.container}>
+      <nav>
+        <Link to='/'>Home</Link>
+        <Button 
+        text='Logout'
+        className={styles.logoutBtn}
+        onClick={() => {
+          localStorage.removeItem('jwt');
+          navigate('/')
+        }}
+        />
+      </nav>
+      <header>
+        <h1>Welcome back {currentUser.username}, to Scribbly.</h1>
+        <div>
+          <p>
+            Explore thoughts, stories and ideas from seasoned writers.
+          </p>
+          <p>
+            <Button
+            text='Create Post'
+            onClick={() => navigate('/post-form')}
             />
-          )) :
-          <p>No posts on this site yet.</p>
+          </p>
+        </div>
+      </header>
+      <main>
+        {status === 'loading' &&
+        <div>Loading posts hang tight!</div>}
+        {status === 'error' &&
+        <p>An error occured while fetching data.</p>}
+        { status === 'data' &&
+        <div>
+          <h2 className="heading">Posts</h2>
+          {posts.length > 0 ?
+            posts.map((post) => (
+              <Post
+              key={`${postCounter}${post.id}`}
+              id={post.id}
+              post={post}
+              updatePost={setPostCounter}
+              posts={posts}
+              setPosts={setPosts}
+              pageUpdated={pageUpdated}
+              setPageUpdated={setPageUpdated}
+              />
+            )) :
+            <p>No posts on this site yet.</p>
+          }
+        </div>
         }
-      </div>
-      }
-    </main>
-    <footer>
-      <p>Scribbly 2025 by Stephen Asembo.</p>
-    </footer>
+      </main>
+      <footer>
+        <p>Scribbly 2025 by Stephen Asembo.</p>
+      </footer>
     </div>
   )
 }
