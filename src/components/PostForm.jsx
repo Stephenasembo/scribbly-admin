@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function PostForm({
   savedPost = null, setFormOpen = null, setPageUpdated = null
 }) {
-  const [postData, setPostData] = useState({});
+  const [postData, setPostData] = useState({content: ''});
   const [status, setStatus] = useState('data');
   const [initialPost, setInitialPost] = useState(savedPost);
 
@@ -112,7 +112,7 @@ export default function PostForm({
             name="content"
             id="content"
             rows='25'
-            value={initialPost ? initialPost.content : ''}
+            value={initialPost ? initialPost.content : postData.content}
             required
             onChange={savedPost ? updateInitialContent : updateContent}
             >
