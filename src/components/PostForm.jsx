@@ -112,7 +112,7 @@ export default function PostForm({
             name="content"
             id="content"
             rows='25'
-            value={initialPost.content || ''}
+            value={initialPost ? initialPost.content : ''}
             required
             onChange={savedPost ? updateInitialContent : updateContent}
             >
