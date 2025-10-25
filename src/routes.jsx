@@ -5,6 +5,7 @@ import ForbiddenPage from "./components/ForbiddenPage";
 import Homepage from "./components/Homepage";
 import PostPage from "./components/PostPage";
 import PostForm from "./components/PostForm";
+import SignupForm from "./components/SignupForm";
 
 const routes = [
   {
@@ -15,6 +16,10 @@ const routes = [
   {
     path: 'login',
     element: <LoginForm />,
+  },
+  {
+    path: 'signup',
+    element: <SignupForm />,
   },
   {
     path: 'forbidden',
