@@ -10,7 +10,7 @@ export default function SignupForm() {
   const navigate = useNavigate();
   const {setCurrentUser} = useAuthContext();
 
-  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const baseUrl = import.meta.env.VITE_TEST_URL;
   const url = `${baseUrl}auth/admin/signup`
 
   async function sendData() {
@@ -29,8 +29,9 @@ export default function SignupForm() {
     }
 
     response = await response.json();
-    const user = response.user;
-    const jwt = response.token;
+    const user = response.data.user;
+    const jwt = response.data.token;
+    console.log(response.message);
     localStorage.setItem('scribbly_admin_jwt', `Bearer ${jwt}`);
     setCurrentUser(user);
     return navigate('/app')
