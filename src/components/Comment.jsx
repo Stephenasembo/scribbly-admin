@@ -8,7 +8,7 @@ export default function Comment({comment, id, pageUpdated, updatePage}) {
   const [content, setContent] = useState(comment.content)
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
-  const token = localStorage.getItem('jwt');
+  const token = localStorage.getItem('scribbly_admin_jwt');
 
   const { currentUser } = useAuthContext();
 

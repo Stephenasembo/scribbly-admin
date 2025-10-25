@@ -15,7 +15,7 @@ export default function PostForm({
   async function submitPost(isToBeUpdated = false) {
     const baseUrl = import.meta.env.VITE_BASE_URL;
     let url = `${baseUrl}admin/post`;
-    const token = localStorage.getItem('jwt');
+    const token = localStorage.getItem('scribbly_admin_jwt');
     let method = 'POST';
     let formData = postData;
 

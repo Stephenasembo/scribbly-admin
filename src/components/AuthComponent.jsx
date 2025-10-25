@@ -5,6 +5,9 @@ export function AuthComponent ({children}) {
   const [currentUser, setCurrentUser] = useState({})
 
   useEffect(() => {
+    const token = localStorage.getItem('scribbly_admin_jwt');
+    if(!token) return;
+
     const baseUrl = import.meta.env.VITE_BASE_URL;
     const url = `${baseUrl}auth/user`
     async function fetchUser() {
@@ -15,17 +18,12 @@ export function AuthComponent ({children}) {
       }
       });
       if(response.status === 200) {
-      response = await response.json();
-      const user = response.user;
-      return user;
+        response = await response.json();
+        const user = response.user;
+        return user;
       } else {
         return null;
       }
-    }
-
-    const token = localStorage.getItem('jwt');
-    if(!token) {
-      return;
     }
 
     fetchUser()

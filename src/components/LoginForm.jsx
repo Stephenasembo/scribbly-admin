@@ -31,7 +31,7 @@ export default function LoginForm() {
     const user = response.user;
     if(user.admin) {
       const jwt = response.token;
-      localStorage.setItem('jwt', `Bearer ${jwt}`)
+      localStorage.setItem('scribbly_admin_jwt', `Bearer ${jwt}`)
       setCurrentUser(user);
       return navigate('/app');
     }

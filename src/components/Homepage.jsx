@@ -19,7 +19,7 @@ export default function Homepage() {
     const url = `${baseUrl}admin/posts`;
 
     async function fetchPosts() {
-      const token = localStorage.getItem('jwt');
+      const token = localStorage.getItem('scribbly_admin_jwt');
       let response = await fetch (url, {
         mode: 'cors',
         headers: {
@@ -47,7 +47,7 @@ export default function Homepage() {
         text='Logout'
         className={styles.logoutBtn}
         onClick={() => {
-          localStorage.removeItem('jwt');
+          localStorage.removeItem('scribbly_admin_jwt');
           navigate('/')
         }}
         />
