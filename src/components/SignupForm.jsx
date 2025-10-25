@@ -10,7 +10,7 @@ export default function SignupForm() {
   const navigate = useNavigate();
   const {setCurrentUser} = useAuthContext();
 
-  const baseUrl = import.meta.env.VITE_TEST_URL;
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const url = `${baseUrl}auth/admin/signup`
 
   async function sendData() {
